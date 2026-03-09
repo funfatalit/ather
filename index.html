@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atheryx - Minecraft Server</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    
+    <header>
+        <div class="logo">ATHERYX</div>
+        <nav id="mainNav">
+            <a href="#main">ГЛАВНАЯ</a>
+            <a href="#features">ВОЗМОЖНОСТИ</a>
+            <a href="#shop">МАГАЗИН</a>
+            <a href="#about">О НАС</a>
+            <a href="https://t.me/nelexyse" target="_blank" rel="noopener noreferrer">TELEGRAM</a>
+            <a href="#" class="btn-outline" id="authButton" onclick="handleAuthButton(event)">ВОЙТИ</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="hero" id="main">
+            <h1>Преобрази<br>свой опыт<br>в Minecraft</h1>
+            <p>Atheryx — это новое поколение игры-клиента и персональная<br>функциональная система для денежных переводов на сервере.</p>
+            <div class="buttons" id="heroButtons">
+                <button class="btn-primary" onclick="openModal('register')">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+                <button class="btn-secondary" onclick="openModal('login')">ВОЙТИ</button>
+            </div>
+        </div>
+    </main>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2>Возможности сервера</h2>
+            <div class="features-grid">
+                <div class="feature-card"><div class="feature-icon">⚡</div><h3>Производительность</h3><p>Стабильная работа без лагов даже при высокой нагрузке</p></div>
+                <div class="feature-card"><div class="feature-icon">🛡️</div><h3>Защита данных</h3><p>Шифрование и безопасность ваших персональных данных</p></div>
+                <div class="feature-card"><div class="feature-icon">🎮</div><h3>Уникальный геймплей</h3><p>Эксклюзивные режимы и регулярные обновления</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="shop" id="shop">
+        <div class="container">
+            <h2>Магазин привилегий</h2>
+            <div class="shop-grid">
+                <div class="shop-item">
+                    <div class="shop-preview">
+                        <div class="shop-duration-badge">30 ДНЕЙ</div>
+                    </div>
+                    <div class="shop-details">
+                        <h3>Базовый</h3>
+                        <div class="shop-price-wrapper">
+                            <span class="price-label">Цена:</span>
+                            <span class="item-price">299<span>₽</span></span>
+                        </div>
+                        <button class="btn-buy" onclick="handleShopClick()">
+                            <span class="btn-icon">🛒</span> Оплатить
+                        </button>
+                    </div>
+                </div>
+                <div class="shop-item featured">
+                    <div class="item-badge">СКИДКА 15%</div>
+                    <div class="shop-preview">
+                        <div class="shop-duration-badge">90 ДНЕЙ</div>
+                    </div>
+                    <div class="shop-details">
+                        <h3>Премиум</h3>
+                        <div class="shop-price-wrapper">
+                            <span class="price-label">Цена:</span>
+                            <span class="item-price old-price">799</span>
+                            <span class="item-price">699<span>₽</span></span>
+                        </div>
+                        <button class="btn-buy" onclick="handleShopClick()">
+                            <span class="btn-icon">🛒</span> Оплатить
+                        </button>
+                    </div>
+                </div>
+                <div class="shop-item vip">
+                    <div class="item-badge vip-badge">СКИДКА 25%</div>
+                    <div class="shop-preview">
+                        <div class="shop-duration-badge">НАВСЕГДА</div>
+                    </div>
+                    <div class="shop-details">
+                        <h3>VIP</h3>
+                        <div class="shop-price-wrapper">
+                            <span class="price-label">Цена:</span>
+                            <span class="item-price old-price">1065</span>
+                            <span class="item-price">799<span>₽</span></span>
+                        </div>
+                        <button class="btn-buy" onclick="handleShopClick()">
+                            <span class="btn-icon">🛒</span> Оплатить
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>О проекте Atheryx</h2>
+                    <p>Наша цель — предоставить игрокам незабываемый опыт. Присоединяйтесь и станьте частью легенды!</p>
+                    <button class="btn-primary" onclick="openModal('register')">НАЧАТЬ ИГРАТЬ</button>
+                </div>
+                <div class="placeholder-image">🎯</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Модалка регистрации - Шаг 1: Данные -->
+<div id="registerModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('register')">&times;</span>
+        <h2>Регистрация</h2>
+        
+        <!-- Шаг 1: Ввод данных -->
+        <form id="registerForm" onsubmit="handleRegisterStep1(event)">
+            <div class="form-group">
+                <label>Имя пользователя</label>
+                <input type="text" id="reg-username" placeholder="Минимум 3 символа" required>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="reg-email" placeholder="example@mail.com" required>
+            </div>
+            <div class="form-group">
+                <label>Пароль</label>
+                <input type="password" id="reg-password" placeholder="Минимум 6 символов" required>
+            </div>
+            <div class="form-group">
+                <label>Подтвердите пароль</label>
+                <input type="password" id="reg-confirm-password" placeholder="Повторите пароль" required>
+            </div>
+            <button type="submit" class="btn-primary btn-full" id="registerBtn">
+                ПОЛУЧИТЬ КОД
+            </button>
+        </form>
+
+        <p class="modal-footer">
+            Уже есть аккаунт? <a href="#" onclick="switchModal('register', 'login')">Войти</a>
+        </p>
+    </div>
+</div>
+
+<!-- Модалка регистрации - Шаг 2: Код подтверждения -->
+<div id="verifyModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('verify')">&times;</span>
+        <h2>Подтверждение Email</h2>
+        
+        <p class="verify-info">
+            Мы отправили код на <strong id="verifyEmail">email</strong>
+        </p>
+        
+        <form id="verifyForm" onsubmit="handleVerifyCode(event)">
+            <div class="form-group">
+                <label>Код подтверждения</label>
+                <input type="text" 
+                       id="verify-code" 
+                       placeholder="6-значный код" 
+                       maxlength="6" 
+                       pattern="[0-9]{6}"
+                       autocomplete="one-time-code"
+                       inputmode="numeric"
+                       required>
+            </div>
+            
+            <button type="submit" class="btn-primary btn-full" id="verifyBtn">
+                ПОДТВЕРДИТЬ
+            </button>
+        </form>
+        
+        <div class="resend-section">
+            <p id="resendTimer">Отправить код повторно через <span id="timerSeconds">60</span> сек.</p>
+            <button id="resendBtn" class="btn-outline" onclick="handleResendCode()" disabled>
+                ОТПРАВИТЬ ПОВТОРНО
+            </button>
+        </div>
+        
+        <p class="modal-footer">
+            <a href="#" onclick="backToRegister()">← Изменить данные</a>
+        </p>
+    </div>
+</div>
+
+    <!-- Модальные окна (оставлены без изменений) -->
+    <!-- Модальное окно регистрации -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('register')">&times;</span>
+            <h2>Регистрация</h2>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="reg-username">Имя пользователя</label>
+                    <input type="text" id="reg-username" name="username" required minlength="3">
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">Email</label>
+                    <input type="email" id="reg-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">Пароль</label>
+                    <input type="password" id="reg-password" name="password" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="reg-confirm-password">Подтвердите пароль</label>
+                    <input type="password" id="reg-confirm-password" name="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn-primary btn-full">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+                <p class="form-footer">Уже есть аккаунт? <a href="#" onclick="closeModal('register'); openModal('login'); return false;">Войти</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно входа -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('login')">&times;</span>
+            <h2>Вход</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Пароль</label>
+                    <input type="password" id="login-password" name="password" required>
+                </div>
+                <button type="submit" class="btn-primary btn-full">ВОЙТИ</button>
+                <p class="form-footer">Нет аккаунта? <a href="#" onclick="closeModal('login'); openModal('register'); return false;">Зарегистрироваться</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
